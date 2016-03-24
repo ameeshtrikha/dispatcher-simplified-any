@@ -1,0 +1,10 @@
+# The invalidate section defines the pages that are "invalidated" after
+# any activation. Please note that the activated page itself and all 
+# related documents are flushed on an modification. For example: if the 
+# page /foo/bar is activated, all /foo/bar.* files are removed from the
+# cache.
+/invalidate
+{
+	/0000 { /type "deny"  /glob "*" }
+	/0001 { /type "allow"  /glob "*.html" }
+}

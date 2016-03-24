@@ -1,0 +1,57 @@
+<VirtualHost *:80>
+
+    <IfModule mod_ssl.c>
+    SSLProxyEngine on
+    </IfModule>
+
+    # Dispatcher conf
+    #ServerName <%= @params[:server_name] %>
+    #ServerAlias <% @params[:server_aliases].each do |a| %><%= "#{a}" %> <% end %>
+
+    DocumentRoot <%= @params[:docroot] %>
+
+    <Directory <%= @params[:docroot] %>>
+
+        Options FollowSymLinks
+        AllowOverride None
+        Order allow,deny
+        Allow from all
+
+    </Directory>
+
+
+    <Directory />
+
+        <IfModule disp_apache2.c>
+          ModMimeUsePathInfo On
+          # enable dispatcher for ALL request. if this is too restrictive,
+          # move it to another location
+          SetHandler dispatcher-handler
+        </IfModule>
+
+        Options FollowSymLinks
+        AllowOverride None
+
+     </Directory>
+
+    <Location /server-status>
+        SetHandler server-status
+
+        Order Deny,Allow
+        Deny from all
+        Allow from 127.0.0.1
+    </Location>
+
+
+<% if @params[:landing_page] %> 
+    <ifModule mod_rewrite.c>
+        RewriteEngine on
+        RewriteRule   ^/$  <%= @params[:landing_page] %> [R]
+    </ifModule>
+<% end %>
+
+    LogLevel info
+    ErrorLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-error.log
+    CustomLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-access.log combined
+
+</VirtualHost>

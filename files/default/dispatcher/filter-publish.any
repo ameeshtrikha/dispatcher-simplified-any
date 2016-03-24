@@ -1,0 +1,50 @@
+    # The filter section defines the requests that should be handled by the dispatcher.
+    # The globs will be compared against the request line, e.g. "GET /index.html HTTP/1.1".
+    /filter
+      {
+      # Deny everything first and then allow specific entries
+      /0001 { /type "deny"  /glob "*" }
+        
+      # Open consoles
+#     /0011 { /type "allow" /glob "* /admin/*"  }  # allow servlet engine admin
+#     /0012 { /type "allow" /glob "* /crx/*"    }  # allow content repository
+#     /0013 { /type "allow" /glob "* /system/*" }  # allow OSGi console
+        
+      # Allow non-public content directories
+#     /0021 { /type "allow" /glob "* /apps/*"   }  # allow apps access
+#     /0022 { /type "allow" /glob "* /bin/*"    }
+      /0023 { /type "allow" /glob "* /content*" }  # disable this rule to allow mapped content only
+      
+#     /0024 { /type "allow" /glob "* /libs/*"   }
+#     /0025 { /type "deny"  /glob "* /libs/shindig/proxy*" } # if you enable /libs close access to proxy
+
+#     /0026 { /type "allow" /glob "* /home/*"   }
+#     /0027 { /type "allow" /glob "* /tmp/*"    }
+#     /0028 { /type "allow" /glob "* /var/*"    }
+
+      # Enable specific mime types in non-public content directories 
+      /0041 { /type "allow" /glob "* *.css *"   }  # enable css
+      /0042 { /type "allow" /glob "* *.gif *"   }  # enable gifs
+      /0043 { /type "allow" /glob "* *.ico *"   }  # enable icos
+      /0044 { /type "allow" /glob "* *.js *"    }  # enable javascript
+      /0045 { /type "allow" /glob "* *.png *"   }  # enable png
+      /0046 { /type "allow" /glob "* *.swf *"   }  # enable flash
+
+      # Enable features 
+      /0061 { /type "allow" /glob "POST /content/[.]*.form.html" }  # allow POSTs to form selectors under content
+      /0062 { /type "allow" /glob "* /libs/cq/personalization/*"  }  # enable personalization
+
+      # Deny content grabbing
+      /0081 { /type "deny"  /glob "GET *.infinity.json*" }
+      /0082 { /type "deny"  /glob "GET *.tidy.json*"     }
+      /0083 { /type "deny"  /glob "GET *.sysview.xml*"   }
+      /0084 { /type "deny"  /glob "GET *.docview.json*"  }
+      /0085 { /type "deny"  /glob "GET *.docview.xml*"  }
+      
+#     /0086 { /type "deny"  /glob "GET *.*[0-9].json*" }
+      /0086 { /type "allow"  /glob "GET *.*[0-9].json*" }
+#     /0087 { /type "allow" /glob "GET *.1.json*" }          # allow one-level json requests
+
+      # Deny query
+      /0090 { /type "deny"  /glob "* *.query.json*" }
+      }

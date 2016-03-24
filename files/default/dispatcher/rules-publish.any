@@ -1,0 +1,22 @@
+# The rules section defines what responses should be cached based on
+# the requested URL. Please note that only the following requests can
+# lead to cacheable responses:
+#
+# - HTTP method is GET
+# - URL has an extension
+# - Request has no query string
+# - Request has no "Authorization" header (unless allowAuthorized is 1)
+/rules
+  {
+  /0000
+    {
+    # the globbing pattern to be compared against the url
+    # example: * -> everything
+    #  : /foo/bar.*    -> only the /foo/bar documents
+    #  : /foo/bar/*    -> all pages below /foo/bar
+    #  : /foo/bar[./]* -> all pages below and /foo/bar itself
+    #  : *.html  -> all .html files
+    /glob "*"
+    /type "allow"
+    }
+  }

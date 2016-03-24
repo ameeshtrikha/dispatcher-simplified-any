@@ -1,0 +1,7 @@
+# The ignoreUrlParams section defines which query string parameter names 
+# are ignored when determining whether a page is cached or delivered from 
+# cache
+/ignoreUrlParams
+{
+	/0001 { /glob "*" /type "deny" }
+}
