@@ -1,6 +1,8 @@
-include_recipe "dispatcher-simplified-any::updateRep"
-include_recipe "apache2"
-
+if node[:platform_family].include?("rhel")
+  include_recipe "dispatcher-simplified-any::updateRep"
+else
+  include_recipe "apache2"
+end
 arch = node['kernel']['machine'] =~ /x86_64/ ? "amd64" : "i386"
 
 # Add the necessary modules to apache
