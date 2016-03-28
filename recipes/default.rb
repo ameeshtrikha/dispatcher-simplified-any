@@ -1,4 +1,4 @@
-include_recipe "updateRep"
+include_recipe "dispatcher-simplified-any::updateRep"
 include_recipe "apache2"
 
 arch = node['kernel']['machine'] =~ /x86_64/ ? "amd64" : "i386"
