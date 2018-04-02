@@ -95,14 +95,14 @@ cookbook_file "#{node['apache']['libexec_dir']}/mod_dispatcher.so" do
   if node['apache']['version'] == '2.4'
     case arch
       when "amd64"
-        source "dispatcher-apache2.4-linux-x86-64-4.1.11.so"
+        source "dispatcher-apache2.4-4.2.3.so"
       when "i386"
         source "dispatcher-apache2.4-linux-i686-4.1.11.so"
     end
   else
     case arch
       when "amd64"
-        source "dispatcher-apache2.2-4.1.7-x86-64.so"
+        source "dispatcher-apache2.4-4.2.3.so"
       when "i386"
         source "dispatcher-apache2.2-4.1.7-i686.so"
     end
