@@ -11,12 +11,11 @@
     DocumentRoot <%= @params[:docroot] %>
 
     <Directory <%= @params[:docroot] %>>
-
         Options FollowSymLinks
         AllowOverride None
-        Order allow,deny
-        Allow from all
-
+        #Order allow,deny
+        #Allow from all
+        Require all granted
     </Directory>
 
 
@@ -37,9 +36,10 @@
     <Location /server-status>
         SetHandler server-status
 
-        Order Deny,Allow
-        Deny from all
-        Allow from 127.0.0.1
+        #Order Deny,Allow
+        #Deny from all
+        #Allow from 127.0.0.1
+        Require host 127.0.0.1
     </Location>
 
 
