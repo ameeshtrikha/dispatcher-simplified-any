@@ -9,4 +9,4 @@ name              "dispatcher-simplified-any"
   supports os
 end
 
-depends "apache2"
+depends "apache2" , '= 3.2.2'
